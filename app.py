@@ -2289,17 +2289,12 @@ if st.session_state.asset_loaded:
 
         st.write("### Latest News")
 
-        news_key = f"latest_news_{ticker}_{display_name}"
-
-        if not st.session_state.asset_payload.get(news_key):
-            with st.spinner("Fetching latest news..."):
-                st.session_state.asset_payload[news_key] = fetch_marketaux_news(
-                    display_name=display_name,
-                    ticker=ticker,
-                    limit=6
-                )
-
-        news_items = st.session_state.asset_payload.get(news_key, [])
+        with st.spinner("Fetching latest news..."):
+            news_items = fetch_marketaux_news(
+                display_name=display_name,
+                ticker=ticker,
+                limit=6
+            )
 
         if not news_items:
             st.warning("No recent operational news found for this asset.")
